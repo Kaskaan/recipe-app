@@ -1,14 +1,14 @@
 package com.konradlesiak.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(exclude = {"categories", "ingredients"})
 @Entity
 public class Recipe {
 
@@ -46,13 +46,12 @@ public class Recipe {
     private Set<Category> categories = new HashSet<>();
 
     public void setNotes(Notes notes) {
-        this.notes = notes;
         notes.setRecipe(this);
+        this.notes = notes;
     }
 
-    public Recipe addIngredient(Ingredient ingredient) {
+    public void addIngredient(Ingredient ingredient) {
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
-        return this;
     }
 }

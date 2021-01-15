@@ -4,18 +4,18 @@ import com.konradlesiak.domain.*;
 import com.konradlesiak.repository.CategoryRepository;
 import com.konradlesiak.repository.RecipeRepository;
 import com.konradlesiak.repository.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by jt on 6/13/17.
- */
+@Slf4j
 @Component
 public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -30,7 +30,9 @@ public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        log.debug("### Loading bootstrap data. ###");
         recipeRepository.saveAll(getRecipes());
     }
 
