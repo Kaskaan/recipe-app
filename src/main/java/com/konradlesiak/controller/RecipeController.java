@@ -20,16 +20,8 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping({"", "/", "index", "index.html"})
-    public String getHomePage(Model model) {
-        model.addAttribute("recipes", recipeService.getRecipes());
-
-        log.debug("### Loading index page. ###");
-        return "index";
-    }
-
     @GetMapping({"/recipe/{id}"})
-    public String getRecipe(Model model, @PathVariable Long id) {
+    public String getRecipeById(Model model, @PathVariable Long id) {
         final Optional<Recipe> recipeById = recipeService.getRecipeById(id);
 
         if (recipeById.isEmpty()) {
