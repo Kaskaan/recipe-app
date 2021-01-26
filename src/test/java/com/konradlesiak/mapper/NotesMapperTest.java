@@ -1,0 +1,72 @@
+package com.konradlesiak.mapper;
+
+import com.konradlesiak.domain.Notes;
+import com.konradlesiak.domain.Recipe;
+import com.konradlesiak.dto.NotesDto;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class NotesMapperTest {
+
+    NotesMapper mapper = NotesMapper.INSTANCE;
+
+    @BeforeEach
+    void setUp() {
+    }
+
+    @Test
+    void testToDtoNull() {
+        assertNull(mapper.toDto(null));
+    }
+
+    @Test
+    void testToEntityNull() {
+        assertNull(mapper.toEntity(null));
+    }
+
+    @Test
+    void testToDtoNotEmptyObject() {
+        Notes entity = new Notes();
+        entity.setId(1L);
+        assertNotNull(mapper.toDto(entity));
+    }
+
+    @Test
+    void testToEntityNotEmptyObject() {
+        NotesDto dto = new NotesDto();
+        dto.setId(1L);
+        assertNotNull(mapper.toEntity(dto));
+    }
+
+    @Test
+    void toDto() {
+        Notes entity = new Notes();
+        entity.setId(1L);
+        entity.setRecipeNotes("recipe notes");
+        entity.setRecipe(new Recipe());
+
+        final NotesDto dto = mapper.toDto(entity);
+
+        assertNotNull(entity);
+        assertEquals(entity.getId(), dto.getId());
+        assertEquals(entity.getRecipeNotes(), dto.getRecipeNotes());
+        assertEquals(entity.getRecipe(), dto.getRecipe());
+    }
+
+    @Test
+    void toEntity() {
+        NotesDto dto = new NotesDto();
+        dto.setId(1L);
+        dto.setRecipeNotes("recipe notes");
+        dto.setRecipe(new Recipe());
+
+        final Notes entity = mapper.toEntity(dto);
+
+        assertNotNull(dto);
+        assertEquals(dto.getId(), entity.getId());
+        assertEquals(dto.getRecipeNotes(), entity.getRecipeNotes());
+        assertEquals(dto.getRecipe(), entity.getRecipe());
+    }
+}
