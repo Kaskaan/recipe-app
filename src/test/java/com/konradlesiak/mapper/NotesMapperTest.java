@@ -3,7 +3,6 @@ package com.konradlesiak.mapper;
 import com.konradlesiak.domain.Notes;
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.dto.NotesDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,10 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class NotesMapperTest {
 
     NotesMapper mapper = NotesMapper.INSTANCE;
-
-    @BeforeEach
-    void setUp() {
-    }
 
     @Test
     void testToDtoNull() {

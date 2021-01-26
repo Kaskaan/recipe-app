@@ -4,7 +4,6 @@ import com.konradlesiak.domain.Difficulty;
 import com.konradlesiak.domain.Notes;
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.dto.RecipeDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -16,10 +15,6 @@ class RecipeMapperTest {
     final RecipeMapper mapper = RecipeMapper.INSTANCE;
 
     final Byte[] image = new Byte[1];
-
-    @BeforeEach
-    void setUp() {
-    }
 
     @Test
     void testToDtoNull() {

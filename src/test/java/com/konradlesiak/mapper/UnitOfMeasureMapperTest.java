@@ -2,7 +2,6 @@ package com.konradlesiak.mapper;
 
 import com.konradlesiak.domain.UnitOfMeasure;
 import com.konradlesiak.dto.UnitOfMeasureDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,10 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class UnitOfMeasureMapperTest {
 
     UnitOfMeasureMapper mapper = UnitOfMeasureMapper.INSTANCE;
-
-    @BeforeEach
-    void setUp() {
-    }
 
     @Test
     void testToDtoNull() {
