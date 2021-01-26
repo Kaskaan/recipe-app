@@ -1,6 +1,6 @@
 package com.konradlesiak.controller;
 
-import com.konradlesiak.domain.Recipe;
+import com.konradlesiak.dto.RecipeDto;
 import com.konradlesiak.service.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,10 +35,10 @@ class RecipeControllerTest {
 
     @Test
     void testGetRecipe() throws Exception {
-        Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        RecipeDto recipeDto = new RecipeDto();
+        recipeDto.setId(1L);
 
-        when(recipeService.getRecipeById(anyLong())).thenReturn(Optional.of(recipe));
+        when(recipeService.getRecipeById(anyLong())).thenReturn(Optional.of(recipeDto));
 
         mockMvc.perform(get("/recipe/1"))
                 .andExpect(status().isOk())

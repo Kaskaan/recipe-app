@@ -1,6 +1,7 @@
 package com.konradlesiak.service;
 
 import com.konradlesiak.domain.Recipe;
+import com.konradlesiak.dto.RecipeDto;
 import com.konradlesiak.repository.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class RecipeServiceImplTest {
+
     RecipeService recipeService;
 
     @Mock
@@ -35,7 +37,7 @@ class RecipeServiceImplTest {
 
         when(recipeRepository.findAll()).thenReturn(recipeData);
 
-        final Set<Recipe> recipes = recipeService.getRecipes();
+        final Set<RecipeDto> recipes = recipeService.getRecipes();
 
         assertEquals(1, recipes.size());
         verify(recipeRepository, times(1)).findAll();
@@ -49,7 +51,7 @@ class RecipeServiceImplTest {
 
         when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
 
-        final Optional<Recipe> recipeById = recipeService.getRecipeById(1L);
+        final Optional<RecipeDto> recipeById = recipeService.getRecipeById(1L);
 
         assertNotNull(recipeById);
         assertEquals(1L, recipeById.get().getId());

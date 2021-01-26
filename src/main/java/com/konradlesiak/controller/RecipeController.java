@@ -1,6 +1,6 @@
 package com.konradlesiak.controller;
 
-import com.konradlesiak.domain.Recipe;
+import com.konradlesiak.dto.RecipeDto;
 import com.konradlesiak.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class RecipeController {
 
     @GetMapping({"/recipe/{id}"})
     public String getRecipeById(Model model, @PathVariable Long id) {
-        final Optional<Recipe> recipeById = recipeService.getRecipeById(id);
+        final Optional<RecipeDto> recipeById = recipeService.getRecipeById(id);
 
         if (recipeById.isEmpty()) {
             log.debug("### Recipe not found. ###");
