@@ -2,6 +2,7 @@ package com.konradlesiak.service;
 
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.repository.RecipeRepository;
+import com.konradlesiak.service.impl.RecipeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
