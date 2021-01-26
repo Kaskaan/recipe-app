@@ -1,7 +1,8 @@
-package com.konradlesiak.service;
+package com.konradlesiak.service.impl;
 
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.repository.RecipeRepository;
+import com.konradlesiak.service.RecipeService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
