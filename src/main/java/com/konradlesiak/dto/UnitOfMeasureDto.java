@@ -1,10 +1,12 @@
 package com.konradlesiak.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UnitOfMeasureDto {
 
     private Long id;

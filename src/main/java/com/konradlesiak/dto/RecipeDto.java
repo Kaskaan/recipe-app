@@ -4,14 +4,16 @@ import com.konradlesiak.domain.Category;
 import com.konradlesiak.domain.Difficulty;
 import com.konradlesiak.domain.Ingredient;
 import com.konradlesiak.domain.Notes;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RecipeDto {
 
     private Long id;

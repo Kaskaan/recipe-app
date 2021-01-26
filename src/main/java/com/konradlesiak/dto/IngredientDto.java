@@ -2,13 +2,15 @@ package com.konradlesiak.dto;
 
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.domain.UnitOfMeasure;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class IngredientDto {
 
     private Long id;
