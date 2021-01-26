@@ -1,10 +1,9 @@
-package com.konradlesiak.service.impl;
+package com.konradlesiak.service;
 
 import com.konradlesiak.domain.Category;
 import com.konradlesiak.dto.CategoryDto;
 import com.konradlesiak.mapper.CategoryMapper;
 import com.konradlesiak.repository.CategoryRepository;
-import com.konradlesiak.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
