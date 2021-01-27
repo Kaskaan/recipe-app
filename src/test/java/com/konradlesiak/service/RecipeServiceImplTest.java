@@ -35,7 +35,7 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    void getRecipes() {
+    void findAll() {
         Recipe recipe = new Recipe();
         Set<Recipe> recipeData = new HashSet<>();
         recipeData.add(recipe);
@@ -49,7 +49,7 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    void getRecipeById() {
+    void findById() {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         Optional<Recipe> optionalRecipe = Optional.of(recipe);
@@ -62,5 +62,9 @@ class RecipeServiceImplTest {
         assertEquals(1L, recipeById.getId());
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+    @Test
+    void save() {
     }
 }
