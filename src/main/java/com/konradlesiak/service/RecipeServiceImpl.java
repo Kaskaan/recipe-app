@@ -49,4 +49,9 @@ public class RecipeServiceImpl implements RecipeService {
         System.out.println("Recipe saved. Recipe ID: " + savedRecipe.getId());
         return recipeMapper.toDto(savedRecipe);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        recipeRepository.deleteById(id);
+    }
 }

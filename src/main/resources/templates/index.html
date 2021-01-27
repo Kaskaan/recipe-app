@@ -25,16 +25,20 @@
 
                 <div class="panel-heading">
                     <h1 class="panel-title">My Recipes!</h1>
+                    <br>
+                    <a href="#" th:href="@{'/recipe/new'}">
+                        <button type="button" class="btn btn-success btn-lg btn-block">Add new recipe</button>
+                    </a>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
-                                <th>ID</th>
                                 <th>Description</th>
-                                <th>View</th>
-                                <th>Edit</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
@@ -46,10 +50,10 @@
                                 <td th:text="Tasty Goodnees 2">Tasty Goodnees 2</td>
                             </tr>
                             <tr th:each="recipe : ${recipes}">
-                                <td th:text="${recipe.id}">334</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 3</td>
                                 <td><a href="#" th:href="@{'/recipe/' + ${recipe.id}}">View</a></td>
                                 <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + ${'/update'}}">Edit</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + ${'/delete'}}">Delete</a></td>
                             </tr>
                         </table>
                     </div>

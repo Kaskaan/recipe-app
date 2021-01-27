@@ -24,6 +24,10 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                        <br>
+                        <a href="#" th:href="@{'/'}">
+                            <button type="button" class="btn btn-success btn-lg btn-block">Go to list of the recipes</button>
+                        </a>
                     </div>
                     <div class="panel-body">
                         <div class="row">
