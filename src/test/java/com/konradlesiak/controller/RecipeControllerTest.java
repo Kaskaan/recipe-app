@@ -9,8 +9,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Optional;
-
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -38,7 +36,7 @@ class RecipeControllerTest {
         RecipeDto recipeDto = new RecipeDto();
         recipeDto.setId(1L);
 
-        when(recipeService.getRecipeById(anyLong())).thenReturn(Optional.of(recipeDto));
+        when(recipeService.findById(anyLong())).thenReturn(recipeDto);
 
         mockMvc.perform(get("/recipe/1"))
                 .andExpect(status().isOk())

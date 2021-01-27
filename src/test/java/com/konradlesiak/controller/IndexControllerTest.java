@@ -47,7 +47,7 @@ class IndexControllerTest {
 
         assertEquals("index", homePage);
 
-        Mockito.verify(recipeService, Mockito.times(1)).getRecipes();
+        Mockito.verify(recipeService, Mockito.times(1)).findAll();
 
         Mockito.verify(model, Mockito.times(1))
                 .addAttribute(Mockito.eq("recipes"), Mockito.anySet());

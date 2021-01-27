@@ -5,9 +5,9 @@ import com.konradlesiak.dto.RecipeDto;
 import com.konradlesiak.mapper.RecipeMapper;
 import com.konradlesiak.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -22,22 +22,31 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Set<RecipeDto> getRecipes() {
+    public Set<RecipeDto> findAll() {
         Set<RecipeDto> recipes = new HashSet<>();
         recipeRepository.findAll().iterator().forEachRemaining(r -> recipes.add(recipeMapper.toDto(r)));
         return recipes;
     }
 
     @Override
-    public Optional<RecipeDto> getRecipeById(Long id) {
+    public RecipeDto findById(Long id) {
         Recipe recipe = recipeRepository.findById(id).orElse(null);
-        return Optional.of(recipeMapper.toDto(recipe));
+
+        if (recipe == null) {
+            System.out.println("Recipe with ID: " + id + " not found");
+        } else {
+            System.out.println("Recipe found! Recipe ID: " + id);
+        }
+
+        return recipeMapper.toDto(recipe);
     }
 
     @Override
+    @Transactional
     public RecipeDto save(RecipeDto recipeDto) {
         Recipe recipe = recipeMapper.toEntity(recipeDto);
         Recipe savedRecipe = recipeRepository.save(recipe);
+        System.out.println("Recipe saved. Recipe ID: " + savedRecipe.getId());
         return recipeMapper.toDto(savedRecipe);
     }
 }

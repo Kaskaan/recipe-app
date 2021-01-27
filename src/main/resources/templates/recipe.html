@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title th:text="'Recipes | ' + ${recipe.get.description}">Recipe</title>
+    <title th:text="'Recipes | ' + ${recipe.description}">Recipe</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -23,7 +23,7 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" th:text="${recipe.get().description}">Recipe Description Here!</h1>
+                        <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -31,12 +31,12 @@
                                 <h5>Categories:</h5>
                             </div>
                             <div class="col-md-9">
-                                <div th:if="${not #lists.isEmpty(recipe.get.getCategories())}">
-                                    <ul th:each="category : ${recipe.get().getCategories()} ">
-                                        <li th:text="${category.getDescription()}">cat one</li>
+                                <div th:if="${not #lists.isEmpty(recipe.categories)}">
+                                    <ul th:each="category : ${recipe.categories} ">
+                                        <li th:text="${category.description}">cat one</li>
                                     </ul>
                                 </div>
-                                <div th:if="${#lists.isEmpty(recipe.get.getCategories())}">
+                                <div th:if="${#lists.isEmpty(recipe.categories)}">
                                     <li th:text="cat one">cat one</li>
                                     <li th:text="cat two">cat two</li>
                                     <li th:text="cat three">cat three</li>
@@ -49,13 +49,13 @@
                                 <h5>Prep Time:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.get().prepTime}">30 min</p>
+                                <p th:text="${recipe.prepTime}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Difficulty:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.get().difficulty}">Easy</p>
+                                <p th:text="${recipe.difficulty}">Easy</p>
                             </div>
                         </div>
                         <div class="row">
@@ -63,13 +63,13 @@
                                 <h5>Cooktime:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.get().cookTime}">30 min</p>
+                                <p th:text="${recipe.cookTime}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Servings:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.get().servings}">4</p>
+                                <p th:text="${recipe.servings}">4</p>
                             </div>
                         </div>
                         <div class="row">
@@ -77,13 +77,13 @@
                                 <h5>Source:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.get().source}">30 min</p>
+                                <p th:text="${recipe.source}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>URL:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.get().url}">http://www.example.com</p>
+                                <p th:text="${recipe.url}">http://www.example.com</p>
                             </div>
                         </div>
                     </div>
@@ -95,12 +95,14 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <div th:if="${not #lists.isEmpty(recipe.get.getCategories())}">
-                                    <ul th:each="ingredient : ${recipe.get().ingredients}">
-                                        <li th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.unitName} + ' of ' + ${ingredient.getDescription()}">1 Cup of milk</li>
+                                <div th:if="${not #lists.isEmpty(recipe.categories)}">
+                                    <ul th:each="ingredient : ${recipe.ingredients}">
+                                        <li th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.unitName} + ' of ' + ${ingredient.description}">
+                                            1 Cup of milk
+                                        </li>
                                     </ul>
                                 </div>
-                                <div th:if="${#lists.isEmpty(recipe.get.getCategories())}">
+                                <div th:if="${#lists.isEmpty(recipe.categories)}">
                                     <li>1 Cup of milk</li>
                                     <li>1 Teaspoon of chocolate</li>
                                     <li>1 Teaspoon of Sugar</li>
@@ -116,7 +118,8 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.get().getDirections()}">Lorem ipsum dolor sit amet, consectetuer
+                                <p th:text="${recipe.directions}">
+                                    Lorem ipsum dolor sit amet, consectetuer
                                     adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
                                     penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
                                     ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
@@ -140,10 +143,10 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.get().getNotes().getRecipeNotes()}">Lorem ipsum dolor sit amet,
-                                    consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
-                                    sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat
+                                <p th:text="${recipe.notes.recipeNotes}">
+                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.
                                     massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
                                     In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis
                                     eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper

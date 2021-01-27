@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Optional;
-
 @Slf4j
 @Controller
 public class RecipeController {
@@ -22,11 +20,11 @@ public class RecipeController {
 
     @GetMapping({"/recipe/{id}"})
     public String getRecipeById(Model model, @PathVariable Long id) {
-        final Optional<RecipeDto> recipeById = recipeService.getRecipeById(id);
+        final RecipeDto recipeById = recipeService.findById(id);
 
-        if (recipeById.isEmpty()) {
+        if (recipeById == null) {
             log.debug("### Recipe not found. ###");
-            return "redirect:/index";
+            return "redirect:/index.html";
         } else {
             model.addAttribute("recipe", recipeById);
             log.debug("### Loading recipe page. ###");
