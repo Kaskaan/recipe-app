@@ -31,17 +31,11 @@
                                 <h5>Categories:</h5>
                             </div>
                             <div class="col-md-9">
-                                <div th:if="${not #lists.isEmpty(recipe.categories)}">
-                                    <ul th:each="category : ${recipe.categories} ">
-                                        <li th:text="${category.description}">cat one</li>
-                                    </ul>
-                                </div>
-                                <div th:if="${#lists.isEmpty(recipe.categories)}">
-                                    <li th:text="cat one">cat one</li>
-                                    <li th:text="cat two">cat two</li>
-                                    <li th:text="cat three">cat three</li>
-                                </div>
-
+                                <ul th:each="category : ${recipe.categories} ">
+                                    <li th:text="${category.description}">cat one</li>
+                                    <li th:remove="all">cat two</li>
+                                    <li th:remove="all">cat three</li>
+                                </ul>
                             </div>
                         </div>
                         <div class="row">

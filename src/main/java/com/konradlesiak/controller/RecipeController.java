@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
 @Controller
@@ -30,5 +32,19 @@ public class RecipeController {
             log.debug("### Loading recipe page. ###");
             return "recipe";
         }
+    }
+
+    @GetMapping({"/recipe/new"})
+    public String newRecipe(Model model) {
+        model.addAttribute("recipe", new RecipeDto());
+
+        return "recipe/recipeform";
+    }
+
+    @PostMapping("/recipe")
+    public String saveOrUpdate(@ModelAttribute RecipeDto recipeDto) {
+        RecipeDto savedRecipeDto = recipeService.save(recipeDto);
+
+        return "redirect:/recipe/" + savedRecipeDto.getId();
     }
 }
