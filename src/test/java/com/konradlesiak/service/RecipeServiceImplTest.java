@@ -5,11 +5,9 @@ import com.konradlesiak.dto.RecipeDto;
 import com.konradlesiak.repository.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -19,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
 class RecipeServiceImplTest {
 
     RecipeService recipeService;
@@ -65,6 +61,7 @@ class RecipeServiceImplTest {
     }
 
     @Test
+    @Transactional
     void save() {
     }
 }
