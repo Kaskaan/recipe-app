@@ -5,10 +5,7 @@ import com.konradlesiak.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -41,7 +38,15 @@ public class RecipeController {
         return "recipe/recipeform";
     }
 
-    @PostMapping("/recipe")
+    @GetMapping({"/recipe/{id}/update"})
+    public String updateRecipe(@PathVariable Long id, Model model) {
+        model.addAttribute("recipe", recipeService.findById(id));
+
+        return "recipe/recipeform";
+    }
+
+    @PostMapping
+    @RequestMapping("recipe")
     public String saveOrUpdate(@ModelAttribute RecipeDto recipeDto) {
         RecipeDto savedRecipeDto = recipeService.save(recipeDto);
 
