@@ -6,7 +6,9 @@ import com.konradlesiak.dto.IngredientDto;
 import com.konradlesiak.mapper.IngredientMapper;
 import com.konradlesiak.repository.IngredientRepository;
 import com.konradlesiak.repository.RecipeRepository;
+import com.konradlesiak.repository.UnitOfMeasureRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -14,16 +16,18 @@ import java.util.Set;
 
 @Service
 public class IngredientServiceImpl implements IngredientService {
-    
+
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final IngredientMapper ingredientMapper;
+    private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public IngredientServiceImpl(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, 
-                                 IngredientMapper ingredientMapper) {
+    public IngredientServiceImpl(RecipeRepository recipeRepository, IngredientRepository ingredientRepository,
+                                 IngredientMapper ingredientMapper, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.ingredientMapper = ingredientMapper;
+        this.unitOfMeasureRepository = unitOfMeasureRepository;
     }
 
     @Override
@@ -58,6 +62,46 @@ public class IngredientServiceImpl implements IngredientService {
             System.out.println("IngredientServiceImpl: Ingredient with ID: " + ingredientId + " Not Found!");
         }
         return ingredientDto.get();
+    }
+
+    @Override
+    @Transactional
+    public IngredientDto save(Long recipeId, IngredientDto ingredientDto) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
+        if (recipeOptional.isEmpty()) {
+
+            //todo toss error if not found!
+            return new IngredientDto();
+        } else {
+            Recipe recipe = recipeOptional.get();
+
+            Optional<Ingredient> ingredientOptional = recipe
+                    .getIngredients()
+                    .stream()
+                    .filter(ingredient -> ingredient.getId().equals(ingredientDto.getId()))
+                    .findFirst();
+
+            if (ingredientOptional.isPresent()) {
+                Ingredient ingredientFound = ingredientOptional.get();
+                ingredientFound.setDescription(ingredientDto.getDescription());
+                ingredientFound.setAmount(ingredientDto.getAmount());
+                ingredientFound.setUnitOfMeasure(unitOfMeasureRepository
+                        .findById(ingredientDto.getUnitOfMeasure().getId())
+                        .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
+            } else {
+                //add new Ingredient
+                recipe.addIngredient(ingredientMapper.toEntity(ingredientDto));
+            }
+
+            Recipe savedRecipe = recipeRepository.save(recipe);
+
+            //to do check for fail
+            return ingredientMapper.toDto(savedRecipe.getIngredients().stream()
+                    .filter(recipeIngredients -> recipeIngredients.getId().equals(ingredientDto.getId()))
+                    .findFirst()
+                    .get());
+        }
     }
 
     @Override
