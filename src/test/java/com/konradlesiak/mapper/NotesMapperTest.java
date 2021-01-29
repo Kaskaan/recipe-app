@@ -47,7 +47,7 @@ class NotesMapperTest {
         assertNotNull(entity);
         assertEquals(entity.getId(), dto.getId());
         assertEquals(entity.getRecipeNotes(), dto.getRecipeNotes());
-        assertEquals(entity.getRecipe(), dto.getRecipe());
+        assertEquals(entity.getRecipe().getId(), dto.getRecipe().getId());
     }
 
     @Test
@@ -57,11 +57,11 @@ class NotesMapperTest {
         dto.setRecipeNotes("recipe notes");
         dto.setRecipe(new Recipe());
 
-        final Notes entity = mapper.toEntity(dto);
+        Notes entity = mapper.toEntity(dto);
 
         assertNotNull(dto);
         assertEquals(dto.getId(), entity.getId());
         assertEquals(dto.getRecipeNotes(), entity.getRecipeNotes());
-        assertEquals(dto.getRecipe(), entity.getRecipe());
+        assertEquals(dto.getRecipe().getId(), entity.getRecipe().getId());
     }
 }
