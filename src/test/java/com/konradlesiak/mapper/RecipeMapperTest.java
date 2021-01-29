@@ -93,9 +93,9 @@ class RecipeMapperTest {
         assertEquals(entity.getDirections(), dto.getDirections());
         assertEquals(entity.getDifficulty(), dto.getDifficulty());
         assertEquals(Byte[].class, dto.getImage().getClass());
-        assertEquals(entity.getNotes(), dto.getNotes());
-        assertEquals(entity.getIngredients(), dto.getIngredients());
-        assertEquals(entity.getCategories(), dto.getCategories());
+        assertEquals(entity.getNotes().getId(), dto.getNotes().getId());
+        assertEquals(entity.getIngredients().size(), dto.getIngredients().size());
+        assertEquals(entity.getCategories().size(), dto.getCategories().size());
     }
 
     @Test
@@ -127,8 +127,8 @@ class RecipeMapperTest {
         assertEquals(dto.getDirections(), entity.getDirections());
         assertEquals(dto.getDifficulty(), entity.getDifficulty());
         assertEquals(Byte[].class, entity.getImage().getClass());
-        assertEquals(dto.getNotes(), entity.getNotes());
-        assertEquals(dto.getIngredients(), entity.getIngredients());
-        assertEquals(dto.getCategories(), entity.getCategories());
+        assertEquals(dto.getNotes().getId(), entity.getNotes().getId());
+        assertEquals(dto.getIngredients().size(), entity.getIngredients().size());
+        assertEquals(dto.getCategories().size(), entity.getCategories().size());
     }
 }
