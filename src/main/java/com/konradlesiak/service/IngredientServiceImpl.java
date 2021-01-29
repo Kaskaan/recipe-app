@@ -58,6 +58,7 @@ public class IngredientServiceImpl implements IngredientService {
                 .map(ingredientMapper::toDto)
                 .findFirst();
 
+
         if (ingredientDto.isEmpty()) {
             System.out.println("IngredientServiceImpl: Ingredient with ID: " + ingredientId + " Not Found!");
         }
@@ -66,8 +67,8 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
-    public IngredientDto save(Long recipeId, IngredientDto ingredientDto) {
-        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+    public IngredientDto save(IngredientDto ingredientDto) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientDto.getRecipe().getId());
 
         if (recipeOptional.isEmpty()) {
 
@@ -91,21 +92,39 @@ public class IngredientServiceImpl implements IngredientService {
                         .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
             } else {
                 //add new Ingredient
-                recipe.addIngredient(ingredientMapper.toEntity(ingredientDto));
+                Ingredient ingredient = ingredientMapper.toEntity(ingredientDto);
+                ingredient.setRecipe(recipe);
+
+                recipe.addIngredient(ingredient);
             }
 
             Recipe savedRecipe = recipeRepository.save(recipe);
 
-            //to do check for fail
-            return ingredientMapper.toDto(savedRecipe.getIngredients().stream()
+            Optional<Ingredient> savedIngredientOptional = savedRecipe.getIngredients().stream()
                     .filter(recipeIngredients -> recipeIngredients.getId().equals(ingredientDto.getId()))
-                    .findFirst()
-                    .get());
+                    .findFirst();
+
+            // todo check for fail
+            if (savedIngredientOptional.isEmpty()) {
+                savedIngredientOptional = savedRecipe.getIngredients().stream()
+                        .filter(i -> i.getDescription().equals(ingredientDto.getDescription()))
+                        .filter(i -> i.getAmount().equals(ingredientDto.getAmount()))
+                        .filter(i -> i.getUnitOfMeasure().getId().equals(ingredientDto.getUnitOfMeasure().getId()))
+                        .findFirst();
+            }
+            return ingredientMapper.toDto(savedIngredientOptional.get());
         }
     }
 
     @Override
     public void deleteById(Long id) {
-        ingredientRepository.deleteById(id);
+        Optional<Ingredient> ingredientOptional = ingredientRepository.findById(id);
+
+        if (ingredientOptional.isEmpty()) {
+            System.out.println("No possibility to delete ingredient with ID: " + ingredientOptional.get().getId() + " because doesn't exist!");
+        } else {
+            ingredientRepository.deleteById(id);
+            System.out.println("Ingredient with ID: " + id + " has been deleted!");
+        }
     }
 }

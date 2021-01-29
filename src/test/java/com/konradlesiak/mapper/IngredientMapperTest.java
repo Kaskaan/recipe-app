@@ -42,12 +42,18 @@ class IngredientMapperTest {
 
     @Test
     void toDto() {
+        UnitOfMeasure unitOfMeasureEntity = new UnitOfMeasure();
+        unitOfMeasureEntity.setId(1L);
+
+        Recipe recipeEntity = new Recipe();
+        recipeEntity.setId(1L);
+
         Ingredient entity = new Ingredient();
         entity.setId(1L);
         entity.setAmount(new BigDecimal(2));
         entity.setDescription("description");
-        entity.setRecipe(new Recipe());
-        entity.setUnitOfMeasure(new UnitOfMeasure());
+        entity.setRecipe(recipeEntity);
+        entity.setUnitOfMeasure(unitOfMeasureEntity);
 
         IngredientDto dto = mapper.toDto(entity);
 
@@ -55,26 +61,32 @@ class IngredientMapperTest {
         assertEquals(entity.getId(), dto.getId());
         assertEquals(entity.getAmount(), dto.getAmount());
         assertEquals(entity.getDescription(), dto.getDescription());
-        assertEquals(entity.getRecipe(), dto.getRecipe());
-        assertEquals(entity.getUnitOfMeasure(), dto.getUnitOfMeasure());
+        assertEquals(entity.getRecipe().getId(), dto.getRecipe().getId());
+        assertEquals(entity.getUnitOfMeasure().getId(), dto.getUnitOfMeasure().getId());
     }
 
     @Test
     void toEntity() {
+        UnitOfMeasure unitOfMeasure = new UnitOfMeasure();
+        unitOfMeasure.setId(1L);
+
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
         IngredientDto dto = new IngredientDto();
         dto.setId(1L);
         dto.setAmount(new BigDecimal(2));
         dto.setDescription("description");
-        dto.setRecipe(new Recipe());
-        dto.setUnitOfMeasure(new UnitOfMeasure());
+        dto.setRecipe(recipe);
+        dto.setUnitOfMeasure(unitOfMeasure);
 
-        final Ingredient entity = mapper.toEntity(dto);
+        Ingredient entity = mapper.toEntity(dto);
 
         assertNotNull(entity);
         assertEquals(dto.getId(), entity.getId());
         assertEquals(dto.getAmount(), entity.getAmount());
         assertEquals(dto.getDescription(), entity.getDescription());
-        assertEquals(dto.getRecipe(), entity.getRecipe());
-        assertEquals(dto.getUnitOfMeasure(), entity.getUnitOfMeasure());
+        assertEquals(dto.getRecipe().getId(), entity.getRecipe().getId());
+        assertEquals(dto.getUnitOfMeasure().getId(), entity.getUnitOfMeasure().getId());
     }
 }

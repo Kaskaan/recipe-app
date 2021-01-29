@@ -1,6 +1,10 @@
 package com.konradlesiak.controller;
 
+import com.konradlesiak.domain.UnitOfMeasure;
 import com.konradlesiak.dto.IngredientDto;
+import com.konradlesiak.dto.RecipeDto;
+import com.konradlesiak.mapper.IngredientMapper;
+import com.konradlesiak.mapper.RecipeMapper;
 import com.konradlesiak.service.IngredientService;
 import com.konradlesiak.service.RecipeService;
 import com.konradlesiak.service.UnitOfMeasureService;
@@ -17,11 +21,16 @@ public class IngredientController {
     private final IngredientService ingredientService;
     private final UnitOfMeasureService unitOfMeasureService;
 
+    private final RecipeMapper recipeMapper;
+    private final IngredientMapper ingredientMapper;
+
     public IngredientController(RecipeService recipeService, IngredientService ingredientService,
-                                UnitOfMeasureService unitOfMeasureService) {
+                                UnitOfMeasureService unitOfMeasureService, RecipeMapper recipeMapper, IngredientMapper ingredientMapper) {
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;
         this.unitOfMeasureService = unitOfMeasureService;
+        this.recipeMapper = recipeMapper;
+        this.ingredientMapper = ingredientMapper;
     }
 
     @GetMapping("/recipe/{recipeId}/ingredients")
@@ -37,6 +46,21 @@ public class IngredientController {
         return "/recipe/ingredients/ingredient";
     }
 
+    @GetMapping("/recipe/{recipeId}/ingredient/new")
+    public String saveRecipeIngredient(@PathVariable Long recipeId, Model model) {
+        RecipeDto recipeById = recipeService.findById(recipeId);
+
+        IngredientDto ingredientDto = new IngredientDto();
+        ingredientDto.setRecipe(recipeMapper.toEntity(recipeById));
+        ingredientDto.setUnitOfMeasure(new UnitOfMeasure());
+
+        model.addAttribute("ingredient", ingredientDto);
+
+        model.addAttribute("uomList", unitOfMeasureService.findAll());
+
+        return "recipe/ingredients/ingredientform";
+    }
+
     @GetMapping("/recipe/{recipeId}/ingredient/{ingredientId}/update")
     public String updateRecipeIngredient(@PathVariable Long recipeId,
                                          @PathVariable Long ingredientId, Model model) {
@@ -49,8 +73,19 @@ public class IngredientController {
     @PostMapping
     @RequestMapping("/recipe/{recipeId}/ingredient")
     public String saveOrUpdateRecipeIngredient(@PathVariable Long recipeId, @ModelAttribute IngredientDto ingredientDto) {
-        IngredientDto savedIngredient = ingredientService.save(recipeId, ingredientDto);
 
-        return "redirect:/recipe/" + savedIngredient.getRecipe().getId() + "/ingredient/" + savedIngredient.getId();
+        RecipeDto recipeById = recipeService.findById(recipeId);
+        ingredientDto.setRecipe(recipeMapper.toEntity(recipeById));
+
+        IngredientDto savedIngredient = ingredientService.save(ingredientDto);
+
+        return "redirect:/recipe/" + recipeId + "/ingredient/" + savedIngredient.getId();
+    }
+
+    @DeleteMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/{ingredientId}/delete")
+    public String deleteIngredient(@PathVariable Long recipeId, @PathVariable Long ingredientId) {
+        ingredientService.deleteById(ingredientId);
+        return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 }
