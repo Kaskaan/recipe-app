@@ -46,17 +46,18 @@
                                     <label>Categories:</label>
                                 </div>
                                 <div class="col-md-9 form-group">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="checkbox" value=""/>
-                                            Cat 1
-                                        </label>
-                                    </div>
-                                    <div class="radio" th:remove="all">
-                                        <label>
-                                            <input type="checkbox" value=""/>
-                                            Cat 2
-                                        </label>
+                                    <div th:each="category : ${recipe.categories}">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="checkbox" th:text="${category.description}"/>
+                                            </label>
+                                        </div>
+                                        <div class="radio" th:remove="all">
+                                            <label>
+                                                <input type="checkbox" value=""/>
+                                                Cat 2
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -104,14 +105,16 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-md-11 ">
+                                <div class="col-md-11">
                                     <h1 class="panel-title">Ingredients</h1>
                                 </div>
-                                <div class="col-md-1">
-                                    <a class="btn btn-default" href="#"
-                                       th:href="@{'/recipe/'+${recipe.id}+'/ingredients'}"
-                                       role="button">Edit</a>
-                                </div>
+                                <class class="col-md-1">
+                                    <div th:if="${recipe.getId() != null}">
+                                        <a class="btn btn-default" href="#"
+                                           th:href="@{'/recipe/'+${recipe.id}+'/ingredients'}"
+                                           role="button">Edit</a>
+                                    </div>
+                                </class>
                             </div>
                         </div>
                         <div class="panel-body">
