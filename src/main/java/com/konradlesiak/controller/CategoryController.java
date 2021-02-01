@@ -17,7 +17,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping(path = "/categories")
+    @GetMapping("categories")
     public String getCategories(Model model) {
         final Set<CategoryDto> categories = categoryService.getCategories();
         model.addAttribute("categories", categories);
