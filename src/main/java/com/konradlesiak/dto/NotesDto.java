@@ -1,6 +1,5 @@
 package com.konradlesiak.dto;
 
-import com.konradlesiak.domain.Recipe;
 import lombok.*;
 
 @Getter
@@ -11,6 +10,6 @@ import lombok.*;
 public class NotesDto {
 
     private Long id;
-    private Recipe recipe;
+    private RecipeDto recipe;
     private String recipeNotes;
 }

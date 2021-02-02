@@ -1,8 +1,8 @@
 package com.konradlesiak.controller;
 
-import com.konradlesiak.domain.UnitOfMeasure;
 import com.konradlesiak.dto.IngredientDto;
 import com.konradlesiak.dto.RecipeDto;
+import com.konradlesiak.dto.UnitOfMeasureDto;
 import com.konradlesiak.mapper.IngredientMapper;
 import com.konradlesiak.mapper.RecipeMapper;
 import com.konradlesiak.service.IngredientService;
@@ -51,8 +51,8 @@ public class IngredientController {
         RecipeDto recipeById = recipeService.findById(recipeId);
 
         IngredientDto ingredientDto = new IngredientDto();
-        ingredientDto.setRecipe(recipeMapper.toEntity(recipeById));
-        ingredientDto.setUnitOfMeasure(new UnitOfMeasure());
+        ingredientDto.setRecipe(recipeById);
+        ingredientDto.setUnitOfMeasure(new UnitOfMeasureDto());
 
         model.addAttribute("ingredient", ingredientDto);
 
@@ -74,7 +74,7 @@ public class IngredientController {
     public String saveOrUpdateRecipeIngredient(@PathVariable Long recipeId, @ModelAttribute IngredientDto ingredientDto) {
 
         RecipeDto recipeById = recipeService.findById(recipeId);
-        ingredientDto.setRecipe(recipeMapper.toEntity(recipeById));
+        ingredientDto.setRecipe(recipeById);
 
         IngredientDto savedIngredient = ingredientService.save(ingredientDto);
 

@@ -3,6 +3,7 @@ package com.konradlesiak.mapper;
 import com.konradlesiak.domain.Difficulty;
 import com.konradlesiak.domain.Notes;
 import com.konradlesiak.domain.Recipe;
+import com.konradlesiak.dto.NotesDto;
 import com.konradlesiak.dto.RecipeDto;
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +57,7 @@ class RecipeMapperTest {
         dto.setDirections("directions");
         dto.setImage(image);
         dto.setIngredients(new HashSet<>());
-        dto.setNotes(new Notes());
+        dto.setNotes(new NotesDto());
         dto.setPrepTime(30);
         dto.setServings(2);
         dto.setSource("source");
@@ -109,7 +110,7 @@ class RecipeMapperTest {
         dto.setDirections("directions");
         dto.setImage(image);
         dto.setIngredients(new HashSet<>());
-        dto.setNotes(new Notes());
+        dto.setNotes(new NotesDto());
         dto.setPrepTime(30);
         dto.setServings(2);
         dto.setSource("source");

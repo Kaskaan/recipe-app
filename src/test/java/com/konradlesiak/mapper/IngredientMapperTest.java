@@ -4,6 +4,8 @@ import com.konradlesiak.domain.Ingredient;
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.domain.UnitOfMeasure;
 import com.konradlesiak.dto.IngredientDto;
+import com.konradlesiak.dto.RecipeDto;
+import com.konradlesiak.dto.UnitOfMeasureDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -77,8 +79,8 @@ class IngredientMapperTest {
         dto.setId(1L);
         dto.setAmount(new BigDecimal(2));
         dto.setDescription("description");
-        dto.setRecipe(recipe);
-        dto.setUnitOfMeasure(unitOfMeasure);
+        dto.setRecipe(new RecipeDto());
+        dto.setUnitOfMeasure(new UnitOfMeasureDto());
 
         Ingredient entity = mapper.toEntity(dto);
 

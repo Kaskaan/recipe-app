@@ -3,6 +3,7 @@ package com.konradlesiak.mapper;
 import com.konradlesiak.domain.Category;
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.dto.CategoryDto;
+import com.konradlesiak.dto.RecipeDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,13 +14,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryMapperTest {
 
-    final CategoryMapper mapper = CategoryMapper.INSTANCE;
+    final CategoryMapper mapper = new CategoryMapperImpl();
     Set<Recipe> recipes;
+    Set<RecipeDto> recipesDtoSet;
 
     @BeforeEach
     void setUp() {
         recipes = new HashSet<>();
         recipes.add(new Recipe());
+        recipesDtoSet = new HashSet<>();
+        recipesDtoSet.add(new RecipeDto());
     }
 
     @Test
@@ -54,7 +58,7 @@ class CategoryMapperTest {
         assertNotNull(dto);
         assertEquals(entity.getId(), dto.getId());
         assertEquals("description", dto.getDescription());
-        assertEquals(recipes, dto.getRecipes());
+        assertEquals(recipes.size(), dto.getRecipes().size());
     }
 
     @Test
@@ -62,13 +66,13 @@ class CategoryMapperTest {
         CategoryDto dto = new CategoryDto();
         dto.setId(1L);
         dto.setDescription("description");
-        dto.setRecipes(recipes);
+        dto.setRecipes(recipesDtoSet);
 
         Category entity = mapper.toEntity(dto);
 
         assertNotNull(entity);
         assertEquals(1L, entity.getId());
         assertEquals("description", entity.getDescription());
-        assertEquals(recipes, entity.getRecipes());
+        assertEquals(recipes.size(), entity.getRecipes().size());
     }
 }

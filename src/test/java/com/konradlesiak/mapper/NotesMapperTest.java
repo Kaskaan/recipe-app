@@ -3,6 +3,7 @@ package com.konradlesiak.mapper;
 import com.konradlesiak.domain.Notes;
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.dto.NotesDto;
+import com.konradlesiak.dto.RecipeDto;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,7 +56,7 @@ class NotesMapperTest {
         NotesDto dto = new NotesDto();
         dto.setId(1L);
         dto.setRecipeNotes("recipe notes");
-        dto.setRecipe(new Recipe());
+        dto.setRecipe(new RecipeDto());
 
         Notes entity = mapper.toEntity(dto);
 
