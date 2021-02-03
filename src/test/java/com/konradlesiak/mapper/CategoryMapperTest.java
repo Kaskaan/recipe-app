@@ -1,6 +1,7 @@
 package com.konradlesiak.mapper;
 
 import com.konradlesiak.domain.Category;
+import com.konradlesiak.domain.Notes;
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.dto.CategoryDto;
 import com.konradlesiak.dto.NotesDto;
@@ -25,7 +26,6 @@ class CategoryMapperTest {
         recipes.add(new Recipe());
         recipesDtoSet = new HashSet<>();
         RecipeDto e = new RecipeDto();
-        e.setNotes(new NotesDto());
         recipesDtoSet.add(e);
     }
 
@@ -61,7 +61,6 @@ class CategoryMapperTest {
         assertNotNull(dto);
         assertEquals(entity.getId(), dto.getId());
         assertEquals("description", dto.getDescription());
-        assertEquals(recipes.size(), dto.getRecipes().size());
     }
 
     @Test
@@ -69,7 +68,6 @@ class CategoryMapperTest {
         CategoryDto dto = new CategoryDto();
         dto.setId(1L);
         dto.setDescription("description");
-        dto.setRecipes(recipesDtoSet);
 
         Category entity = mapper.toEntity(dto);
 

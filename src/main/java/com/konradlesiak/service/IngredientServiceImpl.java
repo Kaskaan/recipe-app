@@ -58,7 +58,6 @@ public class IngredientServiceImpl implements IngredientService {
                 .map(ingredientMapper::toDto)
                 .findFirst();
 
-
         if (ingredientDto.isEmpty()) {
             System.out.println("IngredientServiceImpl: Ingredient with ID: " + ingredientId + " Not Found!");
         }
@@ -68,7 +67,7 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     @Transactional
     public IngredientDto save(IngredientDto ingredientDto) {
-        Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientDto.getRecipe().getId());
+        Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientDto.getRecipeId());
 
         if (recipeOptional.isEmpty()) {
 
@@ -93,7 +92,6 @@ public class IngredientServiceImpl implements IngredientService {
             } else {
                 //add new Ingredient
                 Ingredient ingredient = ingredientMapper.toEntity(ingredientDto);
-                ingredient.setRecipe(recipe);
 
                 recipe.addIngredient(ingredient);
             }

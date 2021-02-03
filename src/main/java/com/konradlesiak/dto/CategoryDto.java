@@ -2,8 +2,6 @@ package com.konradlesiak.dto;
 
 import lombok.*;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @Builder
@@ -13,5 +11,4 @@ public class CategoryDto {
 
     private Long id;
     private String description;
-    private Set<RecipeDto> recipes;
 }

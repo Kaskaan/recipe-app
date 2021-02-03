@@ -1,5 +1,6 @@
 package com.konradlesiak.controller;
 
+import com.konradlesiak.domain.Ingredient;
 import com.konradlesiak.dto.IngredientDto;
 import com.konradlesiak.dto.RecipeDto;
 import com.konradlesiak.dto.UnitOfMeasureDto;
@@ -35,7 +36,7 @@ public class IngredientController {
 
     @GetMapping("recipe/{recipeId}/ingredients")
     public String getListOfIngredients(@PathVariable Long recipeId, Model model) {
-        model.addAttribute("recipe", recipeService.findById(recipeId));
+        model.addAttribute("recipe", recipeService.findById(recipeId).getIngredients());
         return "recipe/ingredients/ingredients";
     }
 
@@ -48,13 +49,11 @@ public class IngredientController {
 
     @GetMapping("recipe/{recipeId}/ingredient/new")
     public String saveRecipeIngredient(@PathVariable Long recipeId, Model model) {
-        RecipeDto recipeById = recipeService.findById(recipeId);
+        IngredientDto ingredient = new IngredientDto();
+        ingredient.setRecipeId(recipeId);
+        IngredientDto savedIngredient = ingredientService.save(ingredient);
 
-        IngredientDto ingredientDto = new IngredientDto();
-        ingredientDto.setRecipe(recipeById);
-        ingredientDto.setUnitOfMeasure(new UnitOfMeasureDto());
-
-        model.addAttribute("ingredient", ingredientDto);
+        model.addAttribute("ingredient", savedIngredient);
 
         model.addAttribute("uomList", unitOfMeasureService.findAll());
 
@@ -72,10 +71,7 @@ public class IngredientController {
 
     @PostMapping("recipe/{recipeId}/ingredient")
     public String saveOrUpdateRecipeIngredient(@PathVariable Long recipeId, @ModelAttribute IngredientDto ingredientDto) {
-
-        RecipeDto recipeById = recipeService.findById(recipeId);
-        ingredientDto.setRecipe(recipeById);
-
+        ingredientDto.setRecipeId(recipeId);
         IngredientDto savedIngredient = ingredientService.save(ingredientDto);
 
         return "redirect:/recipe/" + recipeId + "/ingredient/" + savedIngredient.getId();

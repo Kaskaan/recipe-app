@@ -46,12 +46,10 @@ public class Recipe {
     private Set<Category> categories = new HashSet<>();
 
     public void setNotes(Notes notes) {
-        notes.setRecipe(this);
         this.notes = notes;
     }
 
     public void addIngredient(Ingredient ingredient) {
-        ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
     }
 }

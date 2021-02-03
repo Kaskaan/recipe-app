@@ -10,6 +10,5 @@ import lombok.*;
 public class NotesDto {
 
     private Long id;
-    private RecipeDto recipe;
     private String recipeNotes;
 }
