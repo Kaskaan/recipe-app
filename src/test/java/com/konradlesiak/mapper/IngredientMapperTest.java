@@ -4,6 +4,7 @@ import com.konradlesiak.domain.Ingredient;
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.domain.UnitOfMeasure;
 import com.konradlesiak.dto.IngredientDto;
+import com.konradlesiak.dto.NotesDto;
 import com.konradlesiak.dto.RecipeDto;
 import com.konradlesiak.dto.UnitOfMeasureDto;
 import org.junit.jupiter.api.Test;
@@ -79,8 +80,11 @@ class IngredientMapperTest {
         dto.setId(1L);
         dto.setAmount(new BigDecimal(2));
         dto.setDescription("description");
-        dto.setRecipe(new RecipeDto());
+        RecipeDto recipe1 = new RecipeDto();
+        recipe1.setNotes(new NotesDto());
+        dto.setRecipe(recipe1);
         dto.setUnitOfMeasure(new UnitOfMeasureDto());
+
 
         Ingredient entity = mapper.toEntity(dto);
 

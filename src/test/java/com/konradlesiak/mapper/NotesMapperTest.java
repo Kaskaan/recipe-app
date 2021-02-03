@@ -56,7 +56,9 @@ class NotesMapperTest {
         NotesDto dto = new NotesDto();
         dto.setId(1L);
         dto.setRecipeNotes("recipe notes");
-        dto.setRecipe(new RecipeDto());
+        RecipeDto recipe = new RecipeDto();
+        recipe.setNotes(new NotesDto());
+        dto.setRecipe(recipe);
 
         Notes entity = mapper.toEntity(dto);
 

@@ -23,6 +23,7 @@ public class RecipeDto {
     private String directions;
     private Difficulty difficulty;
     private Byte[] image;
+    @EqualsAndHashCode.Exclude
     private NotesDto notes;
     private Set<IngredientDto> ingredients = new HashSet<>();
     private Set<CategoryDto> categories = new HashSet<>();
