@@ -20,9 +20,9 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form  th:object="${ingredient}" th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'} " method="post">
-                <input type="hidden" th:field="*{id}"/>
-                <div class="pannel-group">
+            <form th:object="${ingredient}" th:action="@{'/recipe/' + ${recipe.getId()} + '/ingredient'} " method="post">
+<!--                <input type="hidden" th:field="*{id}"/>-->
+                <div class="panel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h1 class="panel-title">Edit Ingredient Information</h1>
@@ -46,8 +46,8 @@
                                     <select class="form-control" name="unitOfMeasure.id">
                                         <option th:each="uomEach : ${uomList}"
                                                 th:value="${uomEach.id}"
-                                                th:selected="${uomEach.id.equals(ingredient.unitOfMeasureId)}"
-                                                th:text="${uomEach.unitName}">Each</option>
+                                                    th:text="${uomEach.unitName}">Each</option>
+                                        <!--                                                th:selected="${uomEach.getId().equals(ingredient.getUnitOfMeasureDto().getId())}"-->
                                     </select>
                                 </div>
                             </div>

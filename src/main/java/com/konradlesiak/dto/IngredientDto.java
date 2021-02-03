@@ -1,6 +1,7 @@
 package com.konradlesiak.dto;
 
 import lombok.*;
+import org.mapstruct.Mapping;
 
 import java.math.BigDecimal;
 
@@ -16,5 +17,6 @@ public class IngredientDto {
     private BigDecimal amount;
 
     private Long recipeId;
-    private Long unitOfMeasureId;
+    @EqualsAndHashCode.Exclude
+    private UnitOfMeasureDto unitOfMeasureDto;
 }

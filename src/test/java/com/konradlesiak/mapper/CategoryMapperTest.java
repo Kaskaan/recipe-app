@@ -74,6 +74,5 @@ class CategoryMapperTest {
         assertNotNull(entity);
         assertEquals(1L, entity.getId());
         assertEquals("description", entity.getDescription());
-        assertEquals(recipes.size(), entity.getRecipes().size());
     }
 }

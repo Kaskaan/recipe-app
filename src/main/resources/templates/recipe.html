@@ -20,7 +20,7 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <div class="pannel-group">
+            <div class="panel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
@@ -104,14 +104,12 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <div th:if="${not #lists.isEmpty(recipe.categories)}">
-                                    <ul th:each="ingredient : ${recipe.ingredients}">
-                                        <li th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.unitName} + ' of ' + ${ingredient.description}">
+                                    <ul th:each="ingredient : ${recipe.getIngredients()}">
+                                        <li th:text="${ingredient.amount} + ' ' + ${ingredient.getUnitOfMeasureDto().unitName} + ' of ' + ${ingredient.description}">
                                             1 Cup of milk
                                         </li>
                                     </ul>
-                                </div>
-                                <div th:if="${#lists.isEmpty(recipe.categories)}">
+                                <div th:if="${#lists.isEmpty(recipe.getIngredients())}">
                                     <li>1 Cup of milk</li>
                                     <li>1 Teaspoon of chocolate</li>
                                     <li>1 Teaspoon of Sugar</li>

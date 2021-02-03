@@ -87,12 +87,11 @@ public class IngredientServiceImpl implements IngredientService {
                 ingredientFound.setDescription(ingredientDto.getDescription());
                 ingredientFound.setAmount(ingredientDto.getAmount());
                 ingredientFound.setUnitOfMeasure(unitOfMeasureRepository
-                        .findById(ingredientDto.getUnitOfMeasure().getId())
+                        .findById(ingredientDto.getUnitOfMeasureDto().getId())
                         .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
             } else {
-                //add new Ingredient
-                Ingredient ingredient = ingredientMapper.toEntity(ingredientDto);
-
+                Ingredient ingredient = new Ingredient();
+                ingredient.setRecipe(recipe);
                 recipe.addIngredient(ingredient);
             }
 
@@ -107,7 +106,7 @@ public class IngredientServiceImpl implements IngredientService {
                 savedIngredientOptional = savedRecipe.getIngredients().stream()
                         .filter(i -> i.getDescription().equals(ingredientDto.getDescription()))
                         .filter(i -> i.getAmount().equals(ingredientDto.getAmount()))
-                        .filter(i -> i.getUnitOfMeasure().getId().equals(ingredientDto.getUnitOfMeasure().getId()))
+                        .filter(i -> i.getUnitOfMeasure().getId().equals(ingredientDto.getUnitOfMeasureDto().getId()))
                         .findFirst();
             }
             return ingredientMapper.toDto(savedIngredientOptional.get());

@@ -26,7 +26,7 @@ public class RecipeDto {
     @EqualsAndHashCode.Exclude
     private NotesDto notes;
     @EqualsAndHashCode.Exclude
-    private Set<IngredientDto> ingredients = new HashSet<>();
+    private Set<IngredientDto> ingredients;
     @EqualsAndHashCode.Exclude
-    private Set<CategoryDto> categories = new HashSet<>();
+    private Set<CategoryDto> categories;
 }

@@ -29,14 +29,14 @@
                             <h1 class="panel-title">Ingredients</h1>
                         </div>
                         <div class="col-md-1">
-                            <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}" role="button">New</a>
+                            <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredient/new'}" role="button">New</a>
                         </div>
                     </div>
 
                 </div>
                 <div class="panel-body">
 
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipe.ingredients)}">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipe.getIngredients())}">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
@@ -61,12 +61,12 @@
                                 <td><a href="#">Update</a></td>
                                 <td><a href="#">Delete</a></td>
                             </tr>
-                            <tr th:each="ingredient : ${recipe.ingredients}">
-                                <td th:text="${ingredient.id}">334</td>
-                                <td th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.unitName} + ' ' + ${ingredient.description}">Tasty Goodnees 3</td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id}}">View</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Delete</a></td>
+                            <tr th:each="i : ${recipe.getIngredients()}">
+                                <td th:text="${i.id}">334</td>
+                                <td th:text="${i.getAmount()} + ' ' + ${i.getUnitOfMeasureDto().unitName} + ' ' + ${i.description}">Tasty Goodnees 3</td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipeId} + '/ingredient/' + ${i.id}}">View</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipeId} + '/ingredient/' + ${i.id} + '/update'}">Update</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipeId} + '/ingredient/' + ${i.id} + '/delete'}">Delete</a></td>
                             </tr>
                         </table>
                     </div>

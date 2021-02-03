@@ -1,9 +1,7 @@
 package com.konradlesiak.controller;
 
-import com.konradlesiak.domain.Ingredient;
 import com.konradlesiak.dto.IngredientDto;
 import com.konradlesiak.dto.RecipeDto;
-import com.konradlesiak.dto.UnitOfMeasureDto;
 import com.konradlesiak.mapper.IngredientMapper;
 import com.konradlesiak.mapper.RecipeMapper;
 import com.konradlesiak.service.IngredientService;
@@ -14,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @Slf4j
 @Controller
 public class IngredientController {
@@ -21,12 +21,13 @@ public class IngredientController {
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
     private final UnitOfMeasureService unitOfMeasureService;
-
     private final RecipeMapper recipeMapper;
     private final IngredientMapper ingredientMapper;
 
     public IngredientController(RecipeService recipeService, IngredientService ingredientService,
-                                UnitOfMeasureService unitOfMeasureService, RecipeMapper recipeMapper, IngredientMapper ingredientMapper) {
+                                UnitOfMeasureService unitOfMeasureService, RecipeMapper recipeMapper,
+                                IngredientMapper ingredientMapper) {
+
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;
         this.unitOfMeasureService = unitOfMeasureService;
@@ -34,27 +35,36 @@ public class IngredientController {
         this.ingredientMapper = ingredientMapper;
     }
 
-    @GetMapping("recipe/{recipeId}/ingredients")
-    public String getListOfIngredients(@PathVariable Long recipeId, Model model) {
-        model.addAttribute("recipe", recipeService.findById(recipeId).getIngredients());
+    @GetMapping("/recipe/{recipeId}/ingredients")
+    public String listIngredients(@PathVariable Long recipeId, Model model){
+        log.debug("Getting ingredient list for recipe id: " + recipeId);
+        RecipeDto recipes = recipeService.findById(recipeId);
+        Set<IngredientDto> ingredients = recipes.getIngredients();
+
+        model.addAttribute("recipe", recipes);
+        model.addAttribute("ingredients", ingredients);
+
         return "recipe/ingredients/ingredients";
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/{ingredientId}")
-    public String getIngredients(@PathVariable Long recipeId, @PathVariable Long ingredientId, Model model) {
+    public String getIngredient(@PathVariable Long recipeId, @PathVariable Long ingredientId, Model model) {
         IngredientDto ingredientDto = ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId);
         model.addAttribute("ingredient", ingredientDto);
         return "/recipe/ingredients/ingredient";
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/new")
-    public String saveRecipeIngredient(@PathVariable Long recipeId, Model model) {
-        IngredientDto ingredient = new IngredientDto();
-        ingredient.setRecipeId(recipeId);
-        IngredientDto savedIngredient = ingredientService.save(ingredient);
+    public String createRecipeIngredient(@PathVariable Long recipeId, Model model) {
+        RecipeDto recipeServiceById = recipeService.findById(recipeId);
+        IngredientDto ingredientDto = new IngredientDto();
+        ingredientDto.setRecipeId(recipeId);
 
-        model.addAttribute("ingredient", savedIngredient);
+        recipeServiceById.getIngredients().add(ingredientDto);
+        RecipeDto savedRecipe = recipeService.save(recipeServiceById);
 
+        model.addAttribute("ingredient", ingredientDto);
+        model.addAttribute("recipe", savedRecipe);
         model.addAttribute("uomList", unitOfMeasureService.findAll());
 
         return "recipe/ingredients/ingredientform";
