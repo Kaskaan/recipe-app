@@ -25,6 +25,8 @@ public class RecipeDto {
     private Byte[] image;
     @EqualsAndHashCode.Exclude
     private NotesDto notes;
+    @EqualsAndHashCode.Exclude
     private Set<IngredientDto> ingredients = new HashSet<>();
+    @EqualsAndHashCode.Exclude
     private Set<CategoryDto> categories = new HashSet<>();
 }

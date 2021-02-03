@@ -3,6 +3,7 @@ package com.konradlesiak.mapper;
 import com.konradlesiak.domain.Category;
 import com.konradlesiak.domain.Recipe;
 import com.konradlesiak.dto.CategoryDto;
+import com.konradlesiak.dto.NotesDto;
 import com.konradlesiak.dto.RecipeDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,9 @@ class CategoryMapperTest {
         recipes = new HashSet<>();
         recipes.add(new Recipe());
         recipesDtoSet = new HashSet<>();
-        recipesDtoSet.add(new RecipeDto());
+        RecipeDto e = new RecipeDto();
+        e.setNotes(new NotesDto());
+        recipesDtoSet.add(e);
     }
 
     @Test
