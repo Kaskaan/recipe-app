@@ -17,6 +17,5 @@ public class IngredientDto {
     private BigDecimal amount;
 
     private Long recipeId;
-    @EqualsAndHashCode.Exclude
-    private UnitOfMeasureDto unitOfMeasureDto;
+    private Long unitOfMeasureId;
 }

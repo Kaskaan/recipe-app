@@ -9,6 +9,6 @@ public interface IngredientService {
     Set<IngredientDto> findAll();
     IngredientDto findById(Long id);
     IngredientDto findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId);
-    IngredientDto save(IngredientDto ingredientDto);
+    IngredientDto save(Long id, IngredientDto ingredientDto);
     void deleteById(Long id);
 }

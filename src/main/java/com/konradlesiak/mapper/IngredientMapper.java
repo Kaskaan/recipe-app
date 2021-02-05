@@ -13,7 +13,7 @@ public interface IngredientMapper {
     IngredientMapper INSTANCE = Mappers.getMapper(IngredientMapper.class);
 
     @Mapping(source = "recipe.id", target = "recipeId")
-    @Mapping(source = "unitOfMeasure", target = "unitOfMeasureDto")
+    @Mapping(source = "unitOfMeasure.id", target = "unitOfMeasureId")
     IngredientDto toDto(Ingredient ingredient);
 
     @InheritInverseConfiguration

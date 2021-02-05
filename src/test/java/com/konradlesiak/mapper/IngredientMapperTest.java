@@ -64,7 +64,7 @@ class IngredientMapperTest {
         assertEquals(entity.getId(), dto.getId());
         assertEquals(entity.getAmount(), dto.getAmount());
         assertEquals(entity.getDescription(), dto.getDescription());
-        assertEquals(entity.getUnitOfMeasure().getId(), dto.getUnitOfMeasureDto().getId());
+        assertEquals(entity.getUnitOfMeasure().getId(), dto.getUnitOfMeasureId());
     }
 
     @Test
@@ -81,7 +81,7 @@ class IngredientMapperTest {
         dto.setDescription("description");
         RecipeDto recipe1 = new RecipeDto();
         recipe1.setNotes(new NotesDto());
-        dto.setUnitOfMeasureDto(unitOfMeasure);
+        dto.setUnitOfMeasureId(unitOfMeasure.getId());
 
 
         Ingredient entity = mapper.toEntity(dto);
@@ -90,6 +90,6 @@ class IngredientMapperTest {
         assertEquals(dto.getId(), entity.getId());
         assertEquals(dto.getAmount(), entity.getAmount());
         assertEquals(dto.getDescription(), entity.getDescription());
-        assertEquals(dto.getUnitOfMeasureDto().getId(), entity.getUnitOfMeasure().getId());
+        assertEquals(dto.getUnitOfMeasureId(), entity.getUnitOfMeasure().getId());
     }
 }

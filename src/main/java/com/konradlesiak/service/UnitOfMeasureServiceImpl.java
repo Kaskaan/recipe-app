@@ -1,10 +1,12 @@
 package com.konradlesiak.service;
 
+import com.konradlesiak.domain.UnitOfMeasure;
 import com.konradlesiak.dto.UnitOfMeasureDto;
 import com.konradlesiak.mapper.UnitOfMeasureMapper;
 import com.konradlesiak.repository.UnitOfMeasureRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -27,5 +29,11 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
                 .spliterator(), false)
                 .map(unitOfMeasureMapper::toDto)
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public UnitOfMeasureDto findById(Long id) {
+        Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findById(id);
+        return unitOfMeasureMapper.toDto(unitOfMeasure.get());
     }
 }

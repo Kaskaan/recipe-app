@@ -50,7 +50,10 @@ public class IngredientController {
     @GetMapping("recipe/{recipeId}/ingredient/{ingredientId}")
     public String getIngredient(@PathVariable Long recipeId, @PathVariable Long ingredientId, Model model) {
         IngredientDto ingredientDto = ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId);
+
         model.addAttribute("ingredient", ingredientDto);
+        model.addAttribute("uom", unitOfMeasureService.findById(ingredientDto.getUnitOfMeasureId()));
+
         return "/recipe/ingredients/ingredient";
     }
 
@@ -81,8 +84,7 @@ public class IngredientController {
 
     @PostMapping("recipe/{recipeId}/ingredient")
     public String saveOrUpdateRecipeIngredient(@PathVariable Long recipeId, @ModelAttribute IngredientDto ingredientDto) {
-        ingredientDto.setRecipeId(recipeId);
-        IngredientDto savedIngredient = ingredientService.save(ingredientDto);
+        IngredientDto savedIngredient = ingredientService.save(recipeId, ingredientDto);
 
         return "redirect:/recipe/" + recipeId + "/ingredient/" + savedIngredient.getId();
     }
